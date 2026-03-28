@@ -7,13 +7,14 @@
 //     return newObj;
 // }
 
-function deepCopy(obj, hash = new WeakMap()){    
+function deepCopy(obj:any, hash = new WeakMap()):any{
+    
     if(obj===null || typeof obj!== "object") return obj; // und/null/prim
 
     if(hash.get(obj)) return hash.get(obj);
     
     if(obj instanceof Array){ //arr
-        const copy = [];
+        const copy:any = [];
         hash.set(obj, copy);
         for (let i = 0; i < obj.length; i++) {
             copy.push(deepCopy(obj[i], hash));
@@ -44,7 +45,7 @@ function deepCopy(obj, hash = new WeakMap()){
     }
 
     //remaining - obj
-    const copy = {};
+    const copy:any = {};
     hash.set(obj, copy);
     for(const key of Object.keys(obj)){
         copy[key] = deepCopy(obj[key], hash);
@@ -54,11 +55,14 @@ function deepCopy(obj, hash = new WeakMap()){
     return copy;
 }
 
-const obj = {"a":1, "b":[{"a":2, "b":2}]};
+const obj = {"a":2, "b":4, "c":[1, 2, 3, 4]};
 
-const obj2 = deepCopy(obj);
+const copy = deepCopy(obj);
 
-console.log(obj===obj2); // should be false
+copy["a"]=100
+
+console.log(copy["a"]);
+console.log(obj["a"]);
 
 
 
