@@ -47,22 +47,39 @@ function deepCopy(obj:any, hash = new WeakMap()):any{
     //remaining - obj
     const copy:any = {};
     hash.set(obj, copy);
+
+    Object.setPrototypeOf(copy, Object.getPrototypeOf(obj));
+    Object.defineProperties(copy, Object.getOwnPropertyDescriptors(obj)); //for getters/setters(+all props)
+
     for(const key of Object.keys(obj)){
         copy[key] = deepCopy(obj[key], hash);
     }
-    
-    Object.setPrototypeOf(copy, Object.getPrototypeOf(obj));
+
     return copy;
 }
 
-const obj = {"a":2, "b":4, "c":[1, 2, 3, 4]};
+// --ex1
+// const obj = {"a":2, "b":4, "c":[1, 2, 3, 4]};
 
-const copy = deepCopy(obj);
+// const copy = deepCopy(obj);
 
-copy["a"]=100
+// copy["a"]=100
 
-console.log(copy["a"]);
-console.log(obj["a"]);
+// console.log(copy["a"]);
+// console.log(obj["a"]);
+
+// --ex2
+// let user = {
+//   name: "John",
+//   surname: "Smith",
+
+//   get fullName() {
+//     return `${this.name} ${this.surname}`;
+//   }
+// };
+
+// const copy = deepCopy(user);
+// console.log(copy);
 
 
 
