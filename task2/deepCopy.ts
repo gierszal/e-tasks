@@ -7,11 +7,7 @@
 //     return newObj;
 // }
 
-function deepCopy(obj, hash = new WeakMap()){
-    console.log("obj: ", obj);
-    console.log("hash: ", hash);
-    
-    
+function deepCopy(obj, hash = new WeakMap()){    
     if(obj===null || typeof obj!== "object") return obj; // und/null/prim
 
     if(hash.get(obj)) return hash.get(obj);
@@ -62,7 +58,7 @@ const obj = {"a":1, "b":[{"a":2, "b":2}]};
 
 const obj2 = deepCopy(obj);
 
-console.log(obj===obj2);
+console.log(obj===obj2); // should be false
 
 
 
