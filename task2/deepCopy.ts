@@ -1,6 +1,8 @@
 
 function deepCopy(obj: any): any{
-    const newObj = JSON.parse(JSON.stringify(obj));
+    // const newObj = JSON.parse(JSON.stringify(obj));
+    // return newObj; previous one
+    const newObj = structuredClone(obj);
     return newObj;
 }
 
